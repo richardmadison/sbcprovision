@@ -1,7 +1,19 @@
 <?php
 
+function recursiveRemoveDirectory($directory)
+{
+    foreach(glob("{$directory}/*") as $file)
+    {
+        if(is_dir($file)) { 
+            recursiveRemoveDirectory($file);
+        } else if(!is_link($file)) {
+            unlink($file);
+        }
+    }
+    rmdir($directory);
+}
+
 $localfile = "builder.zip";
-// $localzip = fopen($localfilename, "w+");
 $remotefile = "http://control-nyc001.sitebuildercloud.com/builder/builder.zip";
 
 file_put_contents($localfile, fopen($remotefile, 'r'));
@@ -24,5 +36,6 @@ if ($res === TRUE) {
 }
 
 unlink($localfile);
-unlink(".git");
+recursiveRemoveDirectory(".git");
 unlink(".gitattributes");
+
