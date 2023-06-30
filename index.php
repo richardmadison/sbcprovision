@@ -24,3 +24,5 @@
     }
 
     fclose($localzip);
+
+    header('Location: '.$_SERVER['PHP_SELF']);
