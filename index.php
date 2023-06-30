@@ -1,29 +1,19 @@
 <?php
-    // echo "<pre>";
-    // print_r($_SERVER);
-    // echo "</pre>";
-    // die();
 
-    $localfilename = "builder.zip";
-    $localzip = fopen($localfilename, "w+");
+$localfile = "builder.zip";
+// $localzip = fopen($localfilename, "w+");
+$remotefile = "http://control-nyc001.sitebuildercloud.com/builder/builder.zip";
 
-    if (flock($localzip, LOCK_EX)) {
-        fwrite($localzip, fopen("https://control-nyc001.sitebuildercloud.com/builder/builder.zip", 'r'));
-        $zip = new ZipArchive;
-        $res = $zip->open($localfilename);
-        if ($res === TRUE) {
-        $zip->extractTo('.');
-        $zip->close();
-        //
-        } else {
-        //
-        }
-        flock($file, LOCK_UN);
-    } else {
-        die("Couldn't download the zip file.");
-    }
+file_put_contents($localfile, fopen($remotefile, 'r'));
 
-    fclose($localzip);
+unlink(__FILE__);
 
-    echo "installed";
-    // header('Location: '.$_SERVER['PHP_SELF']);
+$zip = new ZipArchive;
+$res = $zip->open($localfile);
+if ($res === TRUE) {
+  $zip->extractTo('.');
+  $zip->close();
+  //
+} else {
+  //
+}
