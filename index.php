@@ -24,3 +24,5 @@ if ($res === TRUE) {
 }
 
 unlink($localfile);
+unlink(".git");
+unlink(".gitattributes");
