@@ -25,4 +25,5 @@
 
     fclose($localzip);
 
-    header('Location: '.$_SERVER['PHP_SELF']);
+    echo "installed";
+    // header('Location: '.$_SERVER['PHP_SELF']);
