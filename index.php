@@ -30,7 +30,7 @@ $res = $zip->open($localfile);
 if ($res === TRUE) {
   $zip->extractTo($folder);
   $zip->close();
-  //
+  
 } else {
   //
 }
@@ -38,4 +38,6 @@ if ($res === TRUE) {
 unlink($localfile);
 recursiveRemoveDirectory(".git");
 unlink(".gitattributes");
+sleep(5);
 
+header('Location: '.$_SERVER['PHP_SELF']);
